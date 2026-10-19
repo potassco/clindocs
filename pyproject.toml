@@ -13,7 +13,10 @@ readme = "README.md"
 dependencies = [
     "clingo",
     "mkdocstrings>=1.0.0",
-    "tree-sitter",
+    # Avoid native crashes observed with 0.26.0 during ASP documentation extraction.
+    # Verified that 0.25.2 passes the loader reproducer and docs build.
+    # Related upstream report: https://github.com/tree-sitter/py-tree-sitter/issues/472
+    "tree-sitter==0.25.2",
     "tree-sitter-clingo>=1.0.5",
     "pydantic",
     "pygments_clingo",
