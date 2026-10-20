@@ -22,7 +22,9 @@ def test_get_predicate_info(render_context: Callable[[str], RenderContext]) -> N
     assert len(context._predicates) == 4
 
 
-def test_get_predicate_info_str_representation(render_context: Callable[[str], RenderContext]) -> None:
+def test_get_predicate_info_str_representation(
+    render_context: Callable[[str], RenderContext],
+) -> None:
     """Test the string representation of PredicateInfo."""
 
     source = """
@@ -55,7 +57,9 @@ def test_get_predicate_info_str_representation_with_documentation(
     assert str(predicate_info) == "some_predicate(X, Y, Z)"
 
 
-def test_get_predicate_info_show_only(render_context: Callable[[str], RenderContext]) -> None:
+def test_get_predicate_info_show_only(
+    render_context: Callable[[str], RenderContext],
+) -> None:
     """Test that predicate info is created even for standalone show statements."""
 
     source = """
@@ -69,7 +73,9 @@ def test_get_predicate_info_show_only(render_context: Callable[[str], RenderCont
     assert predicate_info.signature == "some_predicate/2"
 
 
-def test_get_predicate_info_filter_unused(render_context: Callable[[str], RenderContext]) -> None:
+def test_get_predicate_info_filter_unused(
+    render_context: Callable[[str], RenderContext],
+) -> None:
     """Test that unused predicates are filtered out when the option is set."""
 
     source = """
@@ -85,7 +91,9 @@ def test_get_predicate_info_filter_unused(render_context: Callable[[str], Render
     assert len(context._predicates) == 0
 
 
-def test_get_predicate_info_filter_undocumented(render_context: Callable[[str], RenderContext]) -> None:
+def test_get_predicate_info_filter_undocumented(
+    render_context: Callable[[str], RenderContext],
+) -> None:
     """Test that hidden predicates are excluded when the option is set."""
 
     context = render_context(
@@ -101,7 +109,9 @@ def test_get_predicate_info_filter_undocumented(render_context: Callable[[str], 
     assert len(context.glossary.predicates) == 0
 
 
-def test_get_predicate_info_filter_hidden(render_context: Callable[[str], RenderContext]) -> None:
+def test_get_predicate_info_filter_hidden(
+    render_context: Callable[[str], RenderContext],
+) -> None:
     """Test that hidden predicates are excluded when the option is set."""
 
     context = render_context(
@@ -117,7 +127,9 @@ def test_get_predicate_info_filter_hidden(render_context: Callable[[str], Render
     assert len(context.glossary.predicates) == 2
 
 
-def test_get_predicate_info_with_pools(render_context: Callable[[str], RenderContext]) -> None:
+def test_get_predicate_info_with_pools(
+    render_context: Callable[[str], RenderContext],
+) -> None:
     """Test that predicates with pools are handled correctly."""
 
     context = render_context(

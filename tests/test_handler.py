@@ -21,7 +21,12 @@ def asp_handler_fixture() -> ASPHandler:
     """Fixture that provides an ASPHandler instance."""
 
     return get_handler(
-        theme="material", custom_templates=None, mdx=[], mdx_config={}, tool_config={}, handler_config={}
+        theme="material",
+        custom_templates=None,
+        mdx=[],
+        mdx_config={},
+        tool_config={},
+        handler_config={},
     )
 
 
@@ -140,7 +145,9 @@ def test_do_convert_markdown_simple_success(asp_handler: ASPHandler) -> None:
     md = Markdown()
     processor = HeadingShiftingTreeprocessor(md, 0)
     md.treeprocessors.register(
-        processor, HeadingShiftingTreeprocessor.name, 69  # This number is irrelevant for the test
+        processor,
+        HeadingShiftingTreeprocessor.name,
+        69,  # This number is irrelevant for the test
     )
     asp_handler._md = md
     asp_handler._headings = [old_heading]

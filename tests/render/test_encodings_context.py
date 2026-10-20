@@ -27,7 +27,9 @@ def test_get_encodings_context(render_context: Callable[[str], RenderContext]) -
     assert len(encoding_info.blocks) == 1
 
 
-def test_get_encodings_context_with_comments(render_context: Callable[[str], RenderContext]) -> None:
+def test_get_encodings_context_with_comments(
+    render_context: Callable[[str], RenderContext],
+) -> None:
     """Test that the encodings context is built correctly with comments."""
 
     source = """
@@ -47,7 +49,9 @@ def test_get_encodings_context_with_comments(render_context: Callable[[str], Ren
     assert len(encoding_info.blocks) == 4
 
 
-def test_get_encodings_context_with_ignored_content(render_context: Callable[[str], RenderContext]) -> None:
+def test_get_encodings_context_with_ignored_content(
+    render_context: Callable[[str], RenderContext],
+) -> None:
     """Test that the encodings context is built correctly with ignored content."""
 
     source = """
@@ -68,7 +72,9 @@ def test_get_encodings_context_with_ignored_content(render_context: Callable[[st
     assert len(encoding_info.blocks) == 4
 
 
-def test_get_encodings_context_with_unsupported_directives(render_context: Callable[[str], RenderContext]) -> None:
+def test_get_encodings_context_with_unsupported_directives(
+    render_context: Callable[[str], RenderContext],
+) -> None:
     """Test that unsupported directives still appear in the encoding code blocks."""
 
     source = """
@@ -89,7 +95,9 @@ def test_get_encodings_context_with_unsupported_directives(render_context: Calla
     ]
 
 
-def test_get_encodings_context_with_include_and_show(render_context: Callable[[str], RenderContext]) -> None:
+def test_get_encodings_context_with_include_and_show(
+    render_context: Callable[[str], RenderContext],
+) -> None:
     """Test that includes render as code and shows remain part of the code block."""
 
     source = """
@@ -113,16 +121,39 @@ def test_get_encodings_context_with_include_and_show(render_context: Callable[[s
 @pytest.mark.parametrize(
     ("repo_url", "file_path", "expected_url"),
     [
-        ("https://example.com/repo", "src/file.lp", "https://example.com/repo/tree/master/src/file.lp"),
-        ("https://example.com/repo/", "src/file.lp", "https://example.com/repo/tree/master/src/file.lp"),
-        ("https://example.com/repo", "/src/file.lp", "https://example.com/repo/tree/master/src/file.lp"),
-        ("https://example.com/repo/", "/src/file.lp", "https://example.com/repo/tree/master/src/file.lp"),
+        (
+            "https://example.com/repo",
+            "src/file.lp",
+            "https://example.com/repo/tree/master/src/file.lp",
+        ),
+        (
+            "https://example.com/repo/",
+            "src/file.lp",
+            "https://example.com/repo/tree/master/src/file.lp",
+        ),
+        (
+            "https://example.com/repo",
+            "/src/file.lp",
+            "https://example.com/repo/tree/master/src/file.lp",
+        ),
+        (
+            "https://example.com/repo/",
+            "/src/file.lp",
+            "https://example.com/repo/tree/master/src/file.lp",
+        ),
         (None, "src/file.lp", None),
-        ("https://example.com/repo", "deep/nested/file.lp", "https://example.com/repo/tree/master/deep/nested/file.lp"),
+        (
+            "https://example.com/repo",
+            "deep/nested/file.lp",
+            "https://example.com/repo/tree/master/deep/nested/file.lp",
+        ),
     ],
 )
 def test_get_encodings_context_contains_repo_url(
-    render_context: Callable[[str], RenderContext], repo_url: str | None, file_path: str, expected_url: str
+    render_context: Callable[[str], RenderContext],
+    repo_url: str | None,
+    file_path: str,
+    expected_url: str,
 ) -> None:
     """Test that the encodings repository link is built correctly."""
 

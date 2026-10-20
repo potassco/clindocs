@@ -33,7 +33,12 @@ class ASPHandler(BaseHandler):
         tool_config: Mapping[str, Any],
         handler_config: Mapping[str, Any],
     ):
-        super().__init__(theme=theme, custom_templates=custom_templates, mdx=mdx, mdx_config=mdx_config)
+        super().__init__(
+            theme=theme,
+            custom_templates=custom_templates,
+            mdx=mdx,
+            mdx_config=mdx_config,
+        )
 
         self._tool_config = tool_config
         self._handler_config = handler_config
@@ -138,7 +143,10 @@ class ASPHandler(BaseHandler):
         if self._md is None:
             raise RuntimeError("Markdown instance is not initialized.")
 
-        processor = cast(HeadingShiftingTreeprocessor, self._md.treeprocessors[HeadingShiftingTreeprocessor.name])
+        processor = cast(
+            HeadingShiftingTreeprocessor,
+            self._md.treeprocessors[HeadingShiftingTreeprocessor.name],
+        )
         processor.shift_by = heading_level
 
         try:

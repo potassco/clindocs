@@ -24,7 +24,9 @@ class DependencyGraphContext:
     """ List of input predicate signatures. """
 
 
-def get_dependency_graph_context(predicates: list[PredicateInfo]) -> DependencyGraphContext:
+def get_dependency_graph_context(
+    predicates: list[PredicateInfo],
+) -> DependencyGraphContext:
     """
     Build the dependency graph context from the given predicates.
 

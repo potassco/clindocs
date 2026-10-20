@@ -48,7 +48,10 @@ def test_get_node_text_from_node_without_text() -> None:
     mock_node.text = None
     mock_node.type = "test_type"
 
-    with pytest.raises(ExtractionError, match=re.escape("Node test_type exists but has no text content.")):
+    with pytest.raises(
+        ExtractionError,
+        match=re.escape("Node test_type exists but has no text content."),
+    ):
         get_node_text(mock_node)
 
 
@@ -72,7 +75,8 @@ def test_get_capture_text_out_of_bounds() -> None:
     captures = {"identifier": [cast(Node, mock_node)]}
 
     with pytest.raises(
-        ExtractionError, match=re.escape("Capture group 'identifier' does not have an element at index 1.")
+        ExtractionError,
+        match=re.escape("Capture group 'identifier' does not have an element at index 1."),
     ):
         get_capture_text(captures, "identifier", index=1)
 
@@ -82,7 +86,10 @@ def test_get_capture_text_missing_group() -> None:
 
     captures: dict[str, list[Node]] = {}
 
-    with pytest.raises(ExtractionError, match=re.escape("Required capture group 'identifier' is missing or empty.")):
+    with pytest.raises(
+        ExtractionError,
+        match=re.escape("Required capture group 'identifier' is missing or empty."),
+    ):
         get_capture_text(captures, "identifier")
 
 
@@ -186,7 +193,9 @@ def test_extract_predicate_negative(parse_to_tree: Callable[[str], Tree]) -> Non
     assert predicates[0].negation is True
 
 
-def test_extract_predicate_from_body_literal(parse_to_tree: Callable[[str], Tree]) -> None:
+def test_extract_predicate_from_body_literal(
+    parse_to_tree: Callable[[str], Tree],
+) -> None:
     """Test extracting a Predicate from a body literal node."""
 
     source = ":- not q(Y, Z)."
@@ -303,7 +312,9 @@ def test_extract_statement_head_literal(parse_to_tree: Callable[[str], Tree]) ->
     assert len(statement.needed_predicates) == 0
 
 
-def test_extract_statement_head_disjunction(parse_to_tree: Callable[[str], Tree]) -> None:
+def test_extract_statement_head_disjunction(
+    parse_to_tree: Callable[[str], Tree],
+) -> None:
     """Test extracting a Statement with a disjunction in the head and no body."""
 
     source = "p(1); q(2)."
@@ -319,7 +330,9 @@ def test_extract_statement_head_disjunction(parse_to_tree: Callable[[str], Tree]
     assert len(statement.needed_predicates) == 0
 
 
-def test_extract_statement_head_conditional(parse_to_tree: Callable[[str], Tree]) -> None:
+def test_extract_statement_head_conditional(
+    parse_to_tree: Callable[[str], Tree],
+) -> None:
     """Test extracting a Statement with a conditional literal in the head and no body."""
 
     source = "p(1):q, not r(2)."
@@ -351,7 +364,9 @@ def test_extract_statement_with_body(parse_to_tree: Callable[[str], Tree]) -> No
     assert len(statement.needed_predicates) == 2
 
 
-def test_extract_statement_with_body_aggregate(parse_to_tree: Callable[[str], Tree]) -> None:
+def test_extract_statement_with_body_aggregate(
+    parse_to_tree: Callable[[str], Tree],
+) -> None:
     """Test extracting a Statement with an aggregate in the body."""
 
     source = "p(X) :- X = #count { Y : q(Y), not r(Y) } > 2."
@@ -367,7 +382,9 @@ def test_extract_statement_with_body_aggregate(parse_to_tree: Callable[[str], Tr
     assert len(statement.needed_predicates) == 2
 
 
-def test_extract_statement_with_body_set_aggregate(parse_to_tree: Callable[[str], Tree]) -> None:
+def test_extract_statement_with_body_set_aggregate(
+    parse_to_tree: Callable[[str], Tree],
+) -> None:
     """Test extracting a Statement with a set aggregate in the body."""
 
     source = "p :- 0 < { q(Y) : not r(Y) }."
@@ -383,7 +400,9 @@ def test_extract_statement_with_body_set_aggregate(parse_to_tree: Callable[[str]
     assert len(statement.needed_predicates) == 2
 
 
-def test_extract_statement_with_head_aggregate(parse_to_tree: Callable[[str], Tree]) -> None:
+def test_extract_statement_with_head_aggregate(
+    parse_to_tree: Callable[[str], Tree],
+) -> None:
     """Test extracting a Statement with an aggregate in the head."""
 
     source = "0 <#sum {X:p(X):q(X)}."
@@ -399,7 +418,9 @@ def test_extract_statement_with_head_aggregate(parse_to_tree: Callable[[str], Tr
     assert len(statement.needed_predicates) == 1
 
 
-def test_extract_statement_with_head_set_aggregate(parse_to_tree: Callable[[str], Tree]) -> None:
+def test_extract_statement_with_head_set_aggregate(
+    parse_to_tree: Callable[[str], Tree],
+) -> None:
     """Test extracting a Statement with a set aggregate in the head."""
 
     source = "1{p(X):q(X)}."
@@ -415,7 +436,9 @@ def test_extract_statement_with_head_set_aggregate(parse_to_tree: Callable[[str]
     assert len(statement.needed_predicates) == 1
 
 
-def test_extract_statement_with_head_set_aggregate_and_body(parse_to_tree: Callable[[str], Tree]) -> None:
+def test_extract_statement_with_head_set_aggregate_and_body(
+    parse_to_tree: Callable[[str], Tree],
+) -> None:
     """Test extracting a Statement with a set aggregate in the head and a body."""
 
     source = "1{p(X):q(X)} :- r(X)."
@@ -431,7 +454,9 @@ def test_extract_statement_with_head_set_aggregate_and_body(parse_to_tree: Calla
     assert len(statement.needed_predicates) == 2
 
 
-def test_extract_statement_with_head_set_aggregate_with_comparison(parse_to_tree: Callable[[str], Tree]) -> None:
+def test_extract_statement_with_head_set_aggregate_with_comparison(
+    parse_to_tree: Callable[[str], Tree],
+) -> None:
     """Test extracting a Statement with a set aggregate with comparison in the head."""
 
     source = "{ p(V) : V = Min..Max } = 1 :- q(Min,Max)."
@@ -447,7 +472,9 @@ def test_extract_statement_with_head_set_aggregate_with_comparison(parse_to_tree
     assert len(statement.needed_predicates) == 1
 
 
-def test_extract_statement_with_comparison(parse_to_tree: Callable[[str], Tree]) -> None:
+def test_extract_statement_with_comparison(
+    parse_to_tree: Callable[[str], Tree],
+) -> None:
     """Test extracting a Statement with a comparison in the body."""
 
     source = ":- q(X), r(Y), X!=Y."
@@ -463,7 +490,9 @@ def test_extract_statement_with_comparison(parse_to_tree: Callable[[str], Tree])
     assert len(statement.needed_predicates) == 2
 
 
-def test_extract_bare_statement_for_unsupported_directive(parse_to_tree: Callable[[str], Tree]) -> None:
+def test_extract_bare_statement_for_unsupported_directive(
+    parse_to_tree: Callable[[str], Tree],
+) -> None:
     """Test extracting a bare Statement from an unsupported directive."""
 
     source = "#external p(X) : q(X)."
@@ -503,7 +532,9 @@ def test_extract_argument_documentation(parse_to_tree: Callable[[str], Tree]) ->
     assert documentation.description == "first argument"
 
 
-def test_extract_argument_documentation_description_missing(parse_to_tree: Callable[[str], Tree]) -> None:
+def test_extract_argument_documentation_description_missing(
+    parse_to_tree: Callable[[str], Tree],
+) -> None:
     """Test extracting ArgumentDocumentation when description is missing."""
 
     source = """
@@ -551,7 +582,9 @@ def test_extract_predicate_documentation(parse_to_tree: Callable[[str], Tree]) -
     assert documentation.arguments[1].description == "second argument"
 
 
-def test_extract_predicate_documentation_missing_description(parse_to_tree: Callable[[str], Tree]) -> None:
+def test_extract_predicate_documentation_missing_description(
+    parse_to_tree: Callable[[str], Tree],
+) -> None:
     """Test extracting PredicateDocumentation when description is missing."""
 
     source = """
@@ -575,7 +608,9 @@ def test_extract_predicate_documentation_missing_description(parse_to_tree: Call
     assert documentation.arguments[1].description == "second argument"
 
 
-def test_extract_predicate_documentation_missing_argument_description(parse_to_tree: Callable[[str], Tree]) -> None:
+def test_extract_predicate_documentation_missing_argument_description(
+    parse_to_tree: Callable[[str], Tree],
+) -> None:
     """Test extracting PredicateDocumentation when an argument description is missing."""
 
     source = """
@@ -600,7 +635,9 @@ def test_extract_predicate_documentation_missing_argument_description(parse_to_t
     assert documentation.arguments[1].description == "second argument"
 
 
-def test_extract_predicate_documentation_only_signature(parse_to_tree: Callable[[str], Tree]) -> None:
+def test_extract_predicate_documentation_only_signature(
+    parse_to_tree: Callable[[str], Tree],
+) -> None:
     """Test extracting PredicateDocumentation when only the signature is provided."""
 
     source = """
@@ -618,7 +655,9 @@ def test_extract_predicate_documentation_only_signature(parse_to_tree: Callable[
     assert all(arg.description == "" for arg in documentation.arguments)
 
 
-def test_extract_predicate_documentation_no_arguments(parse_to_tree: Callable[[str], Tree]) -> None:
+def test_extract_predicate_documentation_no_arguments(
+    parse_to_tree: Callable[[str], Tree],
+) -> None:
     """Test extracting PredicateDocumentation when there are no arguments."""
 
     source = """

@@ -90,10 +90,15 @@ def get_encoding_context(documents: list[Document], options: ASPOptions) -> Enco
         repository_url = None
         if options.repo_url:
             repository_url = urljoin(
-                urljoin(options.repo_url.rstrip("/") + "/", "tree/master/"), str(document.path.as_posix()).lstrip("/")
+                urljoin(options.repo_url.rstrip("/") + "/", "tree/master/"),
+                str(document.path.as_posix()).lstrip("/"),
             )
 
-        encoding = EncodingInfo(path=str(document.path), source=document.content, repository_url=repository_url)
+        encoding = EncodingInfo(
+            path=str(document.path),
+            source=document.content,
+            repository_url=repository_url,
+        )
 
         current_block_content = ""
         current_block_type = BlockType.MARKDOWN

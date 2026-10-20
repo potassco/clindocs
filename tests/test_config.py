@@ -8,7 +8,11 @@ from mkdocstrings_handlers.asp._internal.config import ASPOptions
 def test_from_mapping_valid() -> None:
     """Test loading from a standard dictionary."""
 
-    data = {"start_level": 2, "encodings": {"source": True}, "predicate_info": {"include_hidden": False}}
+    data = {
+        "start_level": 2,
+        "encodings": {"source": True},
+        "predicate_info": {"include_hidden": False},
+    }
     options = ASPOptions.from_mapping(data)
 
     assert options.start_level == 2

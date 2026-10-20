@@ -72,7 +72,10 @@ def _add_reference_to_map(
     if row not in file_row_map[path]:
         highlighted = highlight(content, LEXER, formatter)
         file_row_map[path][row] = GlossaryReference(
-            row=row, content=content, is_providing=is_providing, html_content=highlighted
+            row=row,
+            content=content,
+            is_providing=is_providing,
+            html_content=highlighted,
         )
 
 

@@ -5,7 +5,9 @@ from typing import Callable
 from mkdocstrings_handlers.asp._internal.render.render_context import RenderContext
 
 
-def test_dependency_graph_structure(render_context: Callable[[str], RenderContext]) -> None:
+def test_dependency_graph_structure(
+    render_context: Callable[[str], RenderContext],
+) -> None:
     """Test that the dependency graph context is built correctly."""
 
     context = render_context("p(X) :- q(X), not r(X).")
@@ -19,7 +21,9 @@ def test_dependency_graph_structure(render_context: Callable[[str], RenderContex
     assert ("r/1", "p/1") in graph.negatives
 
 
-def test_dependency_graph_classification(render_context: Callable[[str], RenderContext]) -> None:
+def test_dependency_graph_classification(
+    render_context: Callable[[str], RenderContext],
+) -> None:
     """Test input, output and auxiliary classification in the graph."""
 
     context = render_context(

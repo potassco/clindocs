@@ -15,9 +15,18 @@ from mkdocstrings_handlers.asp._internal.render.dependency_graph_context import 
     DependencyGraphContext,
     get_dependency_graph_context,
 )
-from mkdocstrings_handlers.asp._internal.render.encodings_context import EncodingContext, get_encoding_context
-from mkdocstrings_handlers.asp._internal.render.glossary_context import GlossaryContext, get_glossary_context
-from mkdocstrings_handlers.asp._internal.render.predicate_info import PredicateInfo, get_predicate_infos
+from mkdocstrings_handlers.asp._internal.render.encodings_context import (
+    EncodingContext,
+    get_encoding_context,
+)
+from mkdocstrings_handlers.asp._internal.render.glossary_context import (
+    GlossaryContext,
+    get_glossary_context,
+)
+from mkdocstrings_handlers.asp._internal.render.predicate_info import (
+    PredicateInfo,
+    get_predicate_infos,
+)
 from mkdocstrings_handlers.asp._internal.render.predicate_table_context import (
     PredicateTableContext,
     get_predicate_table_context,

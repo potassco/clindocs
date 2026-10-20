@@ -14,7 +14,9 @@ class PredicateTableContext:
     """ The list of predicates to include in the table. """
 
 
-def get_predicate_table_context(predicates: list[PredicateInfo]) -> PredicateTableContext:
+def get_predicate_table_context(
+    predicates: list[PredicateInfo],
+) -> PredicateTableContext:
     """
     Build the predicate table context from the given predicates.
 

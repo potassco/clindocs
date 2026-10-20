@@ -1,8 +1,14 @@
 # Development
 
+To install the project in development mode, use the following command:
+
+```bash
+pip install -e .[dev]
+```
+
 To improve code quality, we use [nox] to run linters, type checkers, unit
-tests, documentation and more. We recommend installing nox using [pipx] to have
-it available globally.
+tests, and more. We recommend installing nox using [pipx] to have it available
+globally.
 
 ```bash
 # install
@@ -35,25 +41,20 @@ python -m pipx install pre-commit
 pre-commit install
 ```
 
-## Code structure
+## Documentation
 
-```text
-src/mkdocstrings_handlers/asp/
-└── _internal/
-    ├── collect/                        # Parsing logic (Input)
-    │   ├── queries/                    # *.scm files with tree-sitter queries
-    │   ├── extractors.py               # Extract data from nodes using queries
-    │   ├── load.py                     # File loading and processing loop
-    │   └── syntax.py                   # Query wrappers and node definitions
-    ├── render/                         # View model generation (Processing)
-    │   ├── render_context.py           # Main rendering context
-    │   ├── dependency_graph_context.py # Dependency graph context
-    │   ├── encodings_context.py        # Encodings context
-    │   ├── glossary_context.py         # Glossary context
-    │   └── predicate_table_context.py  # Predicate table context
-    ├── config.py                       # Configuration options (using Pydantic)
-    ├── domain.py                       # Domain models (Document, Statement, etc.)
-    └── handler.py                      # MkDocstrings handler entry point
+Make sure the documentation dependencies for the project are properly installed
+with
+
+```bash
+pip install .[doc]
+```
+
+To run the documentation locally use the following command and click the
+provided link to open it in the browser.
+
+```bash
+mkdocs serve
 ```
 
 [editable]: https://setuptools.pypa.io/en/latest/userguide/development_mode.html

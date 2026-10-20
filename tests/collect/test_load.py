@@ -2,7 +2,10 @@
 
 from pathlib import Path
 
-from mkdocstrings_handlers.asp._internal.collect.load import load_document, load_documents
+from mkdocstrings_handlers.asp._internal.collect.load import (
+    load_document,
+    load_documents,
+)
 from mkdocstrings_handlers.asp._internal.domain import ShowStatus
 
 
